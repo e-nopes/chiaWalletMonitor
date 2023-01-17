@@ -1,8 +1,7 @@
 # chiaWalletMonitor
-Get notifications when you get Chia XCH  -- Reach me at chia@ifhya.com
+When your wallet gets XCH, you get a Discord webhook message
 
 
-When your wallet gets XCH, you can get a notification via Popup, Push notice through Pushover, Discord, Slack or a custom sound file.
 
 ## Usage
 
@@ -16,8 +15,11 @@ pip install -r requirements.txt
 Start the application with:
 `python ./chiaWallet.py`
 
+#ubuntu gotcha
+if pip install cannot find dbus, try `apt install python-dbus`
+
 Run on windows with `pythonw` instead of `python` to run it in the background on windows.  Linux users have their own ways.
 
 ## Notifications supported
 
-Currently notification support is:  `toast, audio file, Pushover push notifications, Slack, Discord, PushBullet` - Let me know any others you'd like integrated!
+Currently notification support is:  Discord
