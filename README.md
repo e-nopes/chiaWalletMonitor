@@ -15,10 +15,8 @@ pip install -r requirements.txt
 Start the application with:
 `python ./chiaWallet.py`
 
-#ubuntu gotcha
+## Ubuntu gotcha
 if pip install cannot find dbus, try `apt install python-dbus`
-
-Run on windows with `pythonw` instead of `python` to run it in the background on windows.  Linux users have their own ways.
 
 ## Notifications supported
 
