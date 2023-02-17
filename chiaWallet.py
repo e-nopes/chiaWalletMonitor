@@ -1,14 +1,9 @@
-import datetime #for reading present date
+import datetime 
 import time 
 import os
-import requests #for retreiving coronavirus data from web
+import requests
+import discord_notify as dn
 
-enableSysTray = False
-if os.name == 'nt':
-    from infi.systray import SysTrayIcon
-    enableSysTray = True
-
-walletaddress = 'xch1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 addressList   = {   'wallet1'  :    'xch1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' ,
                     'wallet2'  :    'xch1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' }
@@ -42,15 +37,18 @@ while(True):
 
                 if (firstRun[name] == True):
                     shouldPrint[name] = True
-                    msgTxt = '* {wallet} has a total of {} XCH'.format(float(netBalance[name]), wallet = name )
+                    msgTxt = ':four_leaf_clover: {wallet} balance : {} XCH :four_leaf_clover:'.format(float(netBalance[name]), wallet = name )
+                    discord_info = msgTxt
+                    notifier = dn.Notifier(discordWebhook)
+                    notifier.send(discord_info, print_message=False)
                     
                 else:
-                    if currXCH[name] != netBalance[name]:
+                   if currXCH[name] != netBalance[name]:
                         shouldPrint[name] = True
                         amount = netBalance[name] - currXCH[name]
-                        msgTxt = "{wallet} balance changed {sign}{amount:0.5}, {netBalance:0.5} XCH total".format(wallet = name, sign= '+' if (amount>0) else '', amount = amount, netBalance = netBalance[name])
-                        
-                        import discord_notify as dn
+                        msgTxt = ':four_leaf_clover: {wallet} balance : {netBalance:0.5} XCH :four_leaf_clover:           {sign}{amount:0.5} :seedling:'.format(wallet = name,  netBalance = netBalance[name], sign= '+' if (amount>0) else '', amount = amount)
+
+                        #notify discord
                         discord_info = msgTxt
                         notifier = dn.Notifier(discordWebhook)
                         notifier.send(discord_info, print_message=False)
@@ -62,7 +60,7 @@ while(True):
             
             shouldPrint[name] = False
             firstRun[name] = False
-            time.sleep(3)
+            time.sleep(1)
            
     except Exception as e: 
         print (e)
